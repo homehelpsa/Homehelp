@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HomeHelp - Where Homes Find Help</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary-blue: #092c74;
+      --accent-blue: #0066ff;
+      --gold: #d99100;
+      --light-bg: #f5f8fc;
+      --dark-text: #1d252d;
+      --white: #ffffff;
+      --whatsapp-green: #25d366;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { color: var(--dark-text); background-color: #fff; line-height: 1.6; scroll-behavior: smooth; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+
+    /* Top Logo Header */
+    .brand-header { background: #fff; padding: 15px 10px; text-align: center; border-bottom: 1px solid #e5e9f0; }
+    .logo-container { display: inline-flex; flex-direction: column; align-items: center; justify-content: center; }
+    
+    .logo-graphic { width: 60px; height: 45px; position: relative; margin-bottom: 5px; transition: transform 0.4s ease; }
+    .logo-container:hover .logo-graphic { transform: scale(1.05); }
+    .logo-graphic .roof-outer { width: 0; height: 0; border-left: 30px solid transparent; border-right: 30px solid transparent; border-bottom: 25px solid var(--primary-blue); position: absolute; top: 0; }
+    .logo-graphic .roof-inner { width: 0; height: 0; border-left: 20px solid transparent; border-right: 20px solid transparent; border-bottom: 18px solid #fff; position: absolute; top: 7px; left: 10px; }
+    .logo-graphic .h-stem { width: 12px; height: 24px; background: var(--primary-blue); position: absolute; bottom: 0; }
+    .logo-graphic .h-left { left: 15px; }
+    .logo-graphic .h-right { right: 15px; }
+    .logo-graphic .h-cross { width: 18px; height: 8px; background: var(--primary-blue); position: absolute; bottom: 8px; left: 21px; }
+    .logo-graphic .window { width: 8px; height: 8px; background: var(--gold); position: absolute; bottom: 10px; left: 26px; border: 1px solid #fff; }
+
+    .brand-title { font-size: clamp(28px, 6vw, 38px); font-weight: 900; color: var(--primary-blue); letter-spacing: -1px; line-height: 1; }
+    .brand-title span { color: var(--accent-blue); }
+    .brand-tagline { font-size: clamp(14px, 3.5vw, 18px); font-weight: 700; color: var(--gold); margin-top: 5px; }
+    .brand-subline { font-size: clamp(11px, 2.8vw, 13px); font-weight: 600; color: var(--primary-blue); margin-top: 2px; }
+
+    /* Navigation Bar */
+    header { position: sticky; top: 0; background: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000; }
+    .nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 12px 20px; }
+    
+    .menu-toggle { display: none; font-size: 24px; color: var(--primary-blue); background: none; border: none; cursor: pointer; }
+    
+    nav { width: 100%; }
+    nav ul { display: flex; list-style: none; gap: 20px; justify-content: center; align-items: center; }
+    nav a { text-decoration: none; color: var(--dark-text); font-weight: 600; transition: color 0.3s ease; position: relative; }
+    nav a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0; background-color: var(--accent-blue); transition: width 0.3s ease; }
+    nav a:hover::after { width: 100%; }
+    nav a:hover { color: var(--accent-blue); }
+
+    /* Hero Badges Strip */
+    .hero-strip { background: var(--primary-blue); color: white; padding: 15px 10px; text-align: center; }
+    .trust-badges { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; max-width: 1200px; margin: 0 auto; font-size: 13px; font-weight: 700; }
+    .badge { display: flex; align-items: center; gap: 6px; transition: transform 0.3s ease; }
+    .badge:hover { transform: translateY(-2px); }
+    .badge i { color: var(--gold); }
+
+    /* TOP ACTION BOX (WhatsApp & Google Form Link Area) */
+    .booking-action-section {
+      max-width: 800px;
+      margin: 25px auto 10px;
+      padding: 0 15px;
+    }
+    .booking-card {
+      background: #ffffff;
+      border: 2px solid var(--accent-blue);
+      border-radius: 14px;
+      padding: 22px;
+      text-align: center;
+      box-shadow: 0 8px 25px rgba(9, 44, 116, 0.08);
+      transition: all 0.3s ease;
+    }
+    .booking-card h3 {
+      font-size: 20px;
+      color: var(--primary-blue);
+      margin-bottom: 6px;
+    }
+    .booking-card p {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 18px;
+    }
+
+    /* Square WhatsApp Button */
+    .btn-sq-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--whatsapp-green);
+      color: white;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 14px 20px;
+      border-radius: 10px; /* Square with smooth rounded corners */
+      width: 100%;
+      max-width: 380px;
+      box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
+      transition: all 0.3s ease;
+      margin-bottom: 12px;
+    }
+    .btn-sq-whatsapp:hover {
+      background: #1eb956;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(37, 211, 102, 0.4);
+    }
+    .btn-sq-whatsapp i { font-size: 22px; }
+
+    /* Google Form Button (Placeholder) */
+    .btn-google-form {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--primary-blue);
+      color: white;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 12px 20px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 380px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(9, 44, 116, 0.15);
+    }
+    .btn-google-form:hover {
+      background: var(--accent-blue);
+      transform: translateY(-2px);
+    }
+
+    /* Google Review Button Styling */
+  .btn-google-review {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #ffffff;
+    color: #4285f4;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 12px 24px;
+    border: 2px solid #4285f4;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(66, 133, 244, 0.15);
+    cursor: pointer;
+  }
+
+  .btn-google-review:hover {
+    background: #4285f4;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(66, 133, 244, 0.3);
+  }
+
+  .btn-google-review i {
+    font-size: 18px;
+  }
+
+    /* Sections Layout */
+    section { padding: 35px 15px; max-width: 1200px; margin: 0 auto; }
+    .section-title { text-align: center; font-size: clamp(24px, 5vw, 32px); color: var(--primary-blue); margin-bottom: 8px; font-weight: 800; }
+    .section-subtitle { text-align: center; color: #666; margin-bottom: 30px; font-size: 14px; }
+
+    /* Scroll Animation Target Class */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .animate-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* About Section */
+    .about-card { background: var(--light-bg); border-radius: 12px; padding: 25px; border: 1px solid #e1e8f0; text-align: center; transition: box-shadow 0.3s ease, transform 0.3s ease; }
+    .about-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
+    .about-card h3 { color: var(--primary-blue); font-size: 20px; margin-bottom: 12px; }
+
+    /* Services Grid Animation */
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 15px; }
+    .service-card {
+      background: var(--light-bg);
+      border-radius: 10px;
+      padding: 18px 10px;
+      text-align: center;
+      border: 1px solid #e1e8f0;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    .service-card:hover {
+      background: #ffffff;
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 10px 20px rgba(9, 44, 116, 0.12);
+      border-color: var(--accent-blue);
+    }
+    .service-card i { font-size: 28px; color: var(--accent-blue); margin-bottom: 10px; transition: transform 0.3s ease; }
+    .service-card:hover i { transform: scale(1.2) rotate(5deg); }
+    .service-card h3 { font-size: 14px; color: var(--primary-blue); font-weight: 600; }
+
+    /* Reviews Grid Animation */
+    .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin-bottom: 25px; }
+    .review-card {
+      background: var(--white);
+      border: 1px solid #e1e8f0;
+      border-radius: 10px;
+      padding: 18px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+      transition: all 0.3s ease;
+    }
+    .review-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+      border-color: #cbd5e1;
+    }
+    .user-info { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .avatar { width: 40px; height: 40px; background: var(--accent-blue); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0; transition: transform 0.3s ease; }
+    .review-card:hover .avatar { transform: rotate(360deg); }
+
+    .btn-center { text-align: center; }
+    .btn-view-all {
+      background: var(--primary-blue);
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 25px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 15px;
+      width: 100%;
+      max-width: 320px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(9, 44, 116, 0.2);
+    }
+    .btn-view-all:hover {
+      background: var(--accent-blue);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0, 102, 255, 0.3);
+    }
+
+    /* Animated Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      z-index: 2000;
+      overflow-y: auto;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
+      backdrop-filter: blur(3px);
+    }
+    .modal-content {
+      background: white;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 800px;
+      padding: 20px;
+      position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
+      transform: scale(0.8);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .modal.show .modal-content {
+      transform: scale(1);
+      opacity: 1;
+    }
+    .close-modal { position: absolute; right: 15px; top: 15px; font-size: 24px; cursor: pointer; transition: color 0.2s; }
+    .close-modal:hover { color: #e74c3c; }
+    
+    .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 15px; margin-top: 15px; }
+    .video-card { border: 1px solid #ddd; border-radius: 8px; overflow: hidden; transition: transform 0.3s ease; }
+    .video-card:hover { transform: translateY(-4px); }
+    .video-card iframe { width: 100%; height: 180px; border: none; }
+    .video-card .details { padding: 12px; }
+
+    /* Footer */
+    footer { background: #081226; color: white; padding: 40px 15px 20px; margin-top: 40px; }
+    .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; }
+    .footer-col h3 { font-size: 17px; margin-bottom: 12px; color: var(--gold); }
+    .footer-col p { margin-bottom: 8px; color: #a0aec0; font-size: 14px; word-break: break-word; }
+    .social-links { display: flex; gap: 12px; margin-top: 12px; }
+    .social-links a { width: 38px; height: 38px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 16px; transition: all 0.3s ease; }
+    .social-links a:hover { background: var(--accent-blue); transform: translateY(-3px); }
+    .footer-bottom { text-align: center; margin-top: 30px; padding-top: 15px; border-top: 1px solid #1a2942; color: #718096; font-size: 13px; }
+
+    /* Pulsing WhatsApp Floating Button */
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); }
+      70% { box-shadow: 0 0 0 14px rgba(37, 211, 102, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    }
+    .whatsapp-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #25d366;
+      color: white;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      box-shadow: 2px 4px 12px rgba(0,0,0,0.3);
+      z-index: 1500;
+      animation: pulse 2s infinite;
+      transition: transform 0.3s ease;
+    }
+    .whatsapp-float:hover { transform: scale(1.1); }
+
+    /* Mobile Responsive Breakpoints */
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+      nav { display: none; position: absolute; top: 100%; left: 0; background: white; box-shadow: 0 5px 10px rgba(0,0,0,0.1); padding: 15px 0; }
+      nav.active { display: block; }
+      nav ul { flex-direction: column; gap: 15px; }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Logo Branding -->
+  <div class="brand-header">
+    <div class="logo-container">
+      <div class="logo-graphic">
+        <div class="roof-outer"></div>
+        <div class="roof-inner"></div>
+        <div class="h-stem h-left"></div>
+        <div class="h-stem h-right"></div>
+        <div class="h-cross"></div>
+        <div class="window"></div>
+      </div>
+      <div class="brand-title">Home<span>Help</span></div>
+      <div class="brand-tagline">— Where Homes Find Help. —</div>
+      <div class="brand-subline">Everything Your Home Needs. All in One Place.</div>
+    </div>
+  </div>
+
+  <!-- Header & Mobile Menu -->
+  <header>
+    <div class="nav-container">
+      <button class="menu-toggle" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
+      <nav id="mobileNav">
+        <ul>
+          <li><a href="#home" onclick="toggleMenu()">Home</a></li>
+          <li><a href="#about" onclick="toggleMenu()">About Us</a></li>
+          <li><a href="#services" onclick="toggleMenu()">Services</a></li>
+          <li><a href="#reviews" onclick="toggleMenu()">Happy Customers</a></li>
+          <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Badges -->
+  <div class="hero-strip" id="home">
+    <div class="trust-badges">
+      <div class="badge"><i class="fa-solid fa-globe"></i> NATIONWIDE</div>
+      <div class="badge"><i class="fa-solid fa-circle-check"></i> VERIFIED</div>
+      <div class="badge"><i class="fa-solid fa-thumbs-up"></i> RELIABLE</div>
+      <div class="badge"><i class="fa-solid fa-handshake"></i> TRUSTED</div>
+    </div>
+  </div>
+
+  <!-- TOP BOOKING & ENQUIRY ACTION BOX (Navigated to when clicking service card) -->
+  <div class="booking-action-section" id="bookingBox">
+    <div class="booking-card">
+      <h3 id="bookingTitle">Book a Service Instantly</h3>
+      <p id="bookingSubtext">Select a service below or click to chat with us directly!</p>
+      
+      <div>
+        <!-- Square WhatsApp Button -->
+        <a id="topWhatsappBtn" 
+           href="https://wa.me/+27749530985?text=Hello%20HomeHelp,%20I%20want%20to%20inquire%20about%20your%20services." 
+           target="_blank" 
+           class="btn-sq-whatsapp">
+          <i class="fa-brands fa-whatsapp"></i> <span id="waBtnText">Chat on WhatsApp</span>
+        </a>
+      </div>
+
+      <!-- <div>
+         Google Form Link Button (Replace your link in href) 
+        <a id="googleFormBtn" 
+           href="https://forms.google.com" 
+           target="_blank" 
+           class="btn-google-form">
+          <i class="fa-solid fa-clipboard-list"></i> <span id="formBtnText">Fill Online Booking Form</span>
+        </a>
+      </div>
+      
+      <div style="margin-top: 12px;">
+        <a href="YOUR_GOOGLE_REVIEW_LINK_HERE" target="_blank" class="btn-google-review" style="width: 100%; max-width: 380px;">
+          <i class="fa-brands fa-google"></i> Leave Us a Google Review
+        </a> 
+      </div> -->
+
+    </div>
+  </div>
+
+  <!-- About Us -->
+  <section id="about" class="animate-on-scroll">
+    <h2 class="section-title">About Us</h2>
+    <p class="section-subtitle">Dedicated to providing reliable home solutions nationwide</p>
+    <div class="about-card">
+      <h3>Your Trusted Home Partner</h3>
+      <p>HomeHelp is your all-in-one partner for maintenance, repairs, and property renovations. We connect verified professionals with homeowners to provide high-quality services.</p>
+    </div>
+  </section>
+
+  <!-- Services Grid -->
+  <section id="services" class="animate-on-scroll">
+    <h2 class="section-title">Our Services</h2>
+    <p class="section-subtitle">Click on any service to book via WhatsApp <!--or Form --></p>
+    <div class="services-grid">
+      <div class="service-card" onclick="selectService('Cleaning Service')"><i class="fa-solid fa-broom"></i><h3>Cleaning Service</h3></div>
+      <div class="service-card" onclick="selectService('Parties & Events')"><i class="fa-solid fa-champagne-glasses"></i><h3>Parties & Events</h3></div>
+      <div class="service-card" onclick="selectService('Gardening & Trees')"><i class="fa-solid fa-tree"></i><h3>Gardening & Trees</h3></div>
+      <div class="service-card" onclick="selectService('Garage Doors')"><i class="fa-solid fa-warehouse"></i><h3>Garage Doors</h3></div>
+      <div class="service-card" onclick="selectService('Swimming Pools')"><i class="fa-solid fa-water-ladder"></i><h3>Swimming Pools</h3></div>
+      <div class="service-card" onclick="selectService('Handyman')"><i class="fa-solid fa-screwdriver-wrench"></i><h3>Handyman</h3></div>
+      <div class="service-card" onclick="selectService('Electrical Service')"><i class="fa-solid fa-bolt"></i><h3>Electrical Service</h3></div>
+      <div class="service-card" onclick="selectService('Plumbing Service')"><i class="fa-solid fa-faucet-drip"></i><h3>Plumbing Service</h3></div>
+      <div class="service-card" onclick="selectService('Painting')"><i class="fa-solid fa-paint-roller"></i><h3>Painting</h3></div>
+      <div class="service-card" onclick="selectService('Renovations')"><i class="fa-solid fa-trowel-bricks"></i><h3>Renovations</h3></div>
+    
+    <!-- 👈 YEHA PASTE KAREIN (4 NAYE CARDS) -->
+      <div class="service-card" onclick="selectService('Roofing Service')"><i class="fa-solid fa-house-chimney-crack"></i><h3>Roofing Service</h3></div>
+      <div class="service-card" onclick="selectService('Security & Cameras')"><i class="fa-solid fa-video"></i><h3>Security & Cameras</h3></div>
+      <div class="service-card" onclick="selectService('DSTV & TV Setup')"><i class="fa-solid fa-tv"></i><h3>DSTV & TV Setup</h3></div>
+      <div class="service-card" onclick="selectService('Property Maintenance')"><i class="fa-solid fa-toolbox"></i><h3>Maintenance</h3></div>
+  </div>
+    </div>
+  </section>
+
+  <!-- Happy Customers Section -->
+  <section id="reviews" class="animate-on-scroll">
+    <h2 class="section-title">Happy Customers</h2>
+    <p class="section-subtitle">Read what our clients say about HomeHelp</p>
+    <div class="reviews-grid" id="previewReviewsGrid"></div>
+    <div class="btn-center" style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+  <button class="btn-view-all" onclick="toggleModal('reviewsModal')">View All Video & Text Reviews</button>
+  
+  <!-- Google Review Button 
+  <a href="YOUR_GOOGLE_REVIEW_LINK_HERE" target="_blank" class="btn-google-review">
+    <i class="fa-brands fa-google"></i> Leave Us a Google Review
+  </a>  -->
+</div> 
+</div> 
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <div class="footer-content">
+      <div class="footer-col">
+        <h3>HomeHelp</h3>
+        <p>Where Homes Find Help.</p>
+        <p>Everything Your Home Needs. All in One Place.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Contact Details</h3>
+        <p><i class="fa-solid fa-phone"></i> +27 74 953 0985</p>
+        <p><i class="fa-solid fa-envelope"></i> homehelpsa@outlook.com</p>
+        <p><i class="fa-solid fa-location-dot"></i> Cape Town , Cape Town, South Africa, 8001</p>
+      </div>
+      <div class="footer-col">
+        <h3>Follow Us</h3>
+        <p>Connect with us on social media:</p>
+        <div class="social-links">
+          <a href="https://www.tiktok.com/@homehelpsa?_r=1&_t=ZS-99J8VzwBkGL" target="_blank" title="tiktok"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="https://www.instagram.com/home.helpsa?utm_source=qr&igsi=eWJ4Ymdwb2hvM3Az" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.facebook.com/share/1D96veqeQv/" target="_blank" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 HomeHelp. All rights reserved.</div>
+  </footer>
+
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/+27749530985?text=Hello%20HomeHelp,%20I%20would%20like%20to%20inquire%20about%20your%20services." 
+     class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <!-- Animated Reviews Modal -->
+  <div class="modal" id="reviewsModal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="toggleModal('reviewsModal')">&times;</span>
+      <h3 style="margin-bottom:15px; color:var(--primary-blue);">Customer Reviews & Videos</h3>
+      <div class="video-grid" id="fullReviewsGrid"></div>
+    </div>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById('mobileNav');
+      nav.classList.toggle('active');
+    }
+
+    // Function to handle clicking on Service Cards
+    function selectService(serviceName) {
+      // 1. Scroll smoothly to top booking area
+      document.getElementById('bookingBox').scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      // 2. Update Booking Box Text & WhatsApp Link dynamically
+      document.getElementById('bookingTitle').innerText = `Book ${serviceName}`;
+      document.getElementById('bookingSubtext').innerText = `Click below to request ${serviceName} service directly!`;
+      
+      const phoneNumber = "27749530985"; // Apna phone number yahan daalein
+      const encodedMsg = encodeURIComponent(`Hello HomeHelp, I would like to book/inquire about: ${serviceName}`);
+      
+      document.getElementById('topWhatsappBtn').href = `https://wa.me/${phoneNumber}?text=${encodedMsg}`;
+      document.getElementById('waBtnText').innerText = `Inquire for ${serviceName} on WhatsApp`;
+      document.getElementById('formBtnText').innerText = `Fill Form for ${serviceName}`;
+    }
+
+    // Direct JSON Fetch with Cache Busting
+    async function fetchReviews() {
+      try {
+        const response = await fetch('reviews.json?v=' + new Date().getTime());
+        if (!response.ok) throw new Error('File not found');
+        return await response.json();
+      } catch (err) {
+        console.error('Error loading reviews:', err);
+        return [];
+      }
+    }
+
+    async function renderReviews() {
+      const reviews = await fetchReviews();
+      const previewGrid = document.getElementById('previewReviewsGrid');
+      const fullGrid = document.getElementById('fullReviewsGrid');
+
+      previewGrid.innerHTML = '';
+      fullGrid.innerHTML = '';
+
+      if (reviews.length === 0) {
+        previewGrid.innerHTML = '<p style="text-align:center; grid-column:1/-1;">No reviews found.</p>';
+        return;
+      }
+
+      reviews.forEach(review => {
+        previewGrid.innerHTML += `
+          <div class="review-card">
+            <div class="user-info">
+              <div class="avatar">${review.name ? review.name.charAt(0) : 'U'}</div>
+              <div>
+                <strong>${review.name}</strong><br>
+                <small style="color:var(--accent-blue);">${review.service}</small>
+              </div>
+            </div>
+            <p>"${review.text}"</p>
+          </div>
+        `;
+
+        fullGrid.innerHTML += `
+          <div class="video-card">
+            ${review.video ? `<iframe src="${review.video}" allowfullscreen></iframe>` : ''}
+            <div class="details">
+              <h4>${review.name} - <small>${review.service}</small></h4>
+              <p style="margin-top:8px;">"${review.text}"</p>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function toggleModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal.style.display === 'flex') {
+        modal.classList.remove('show');
+        setTimeout(() => { modal.style.display = 'none'; }, 300);
+      } else {
+        modal.style.display = 'flex';
+        setTimeout(() => { modal.classList.add('show'); }, 10);
+      }
+    }
+
+    // Scroll Observer for Fade-In Animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+    renderReviews();
+  </script>
+</body>
+</html>
