@@ -1,0 +1,171 @@
+{
+  "services": [
+    {
+      "name": "Cleaning Service",
+      "icon": "fa-broom",
+      "description": "Deep house cleaning, move-in/move-out sanitation, carpet washing, and general daily maintenance."
+    },
+    {
+      "name": "Parties & Events",
+      "icon": "fa-champagne-glasses",
+      "description": "Event setup, post-party cleanup, catering assistants, tent setup, and decor support."
+    },
+    {
+      "name": "Gardening & Trees",
+      "icon": "fa-tree",
+      "description": "Lawn mowing, tree trimming, garden restoration, landscaping design, and waste removal."
+    },
+    {
+      "name": "Garage Doors",
+      "icon": "fa-warehouse",
+      "description": "Automated garage door repair, motor installations, cable replacement, and routine maintenance."
+    },
+    {
+      "name": "Swimming Pools",
+      "icon": "fa-water-ladder",
+      "description": "Pool cleaning, chemical balancing, pump/filter repairs, leak detection, and lining restoration."
+    },
+    {
+      "name": "Handyman",
+      "icon": "fa-screwdriver-wrench",
+      "description": "General repairs, TV mounting, furniture assembly, curtain installation, and minor fixture fixes."
+    },
+    {
+      "name": "Electrical Service",
+      "icon": "fa-bolt",
+      "description": "Fault finding, DB board wiring, light fittings, plug points, and compliance certificates (COC)."
+    },
+    {
+      "name": "Plumbing Service",
+      "icon": "fa-faucet-drip",
+      "description": "Unblocking drains, burst pipe repair, geyser maintenance, leak detection, and sanitary installs."
+    },
+    {
+      "name": "Painting",
+      "icon": "fa-paint-roller",
+      "description": "Interior and exterior house painting, damp proofing, wall preparation, and decorative finishes."
+    },
+    {
+      "name": "Renovations",
+      "icon": "fa-trowel-bricks",
+      "description": "Kitchen and bathroom remodels, building alterations, dry-walling, and structural repairs."
+    },
+    {
+      "name": "Roofing Service",
+      "icon": "fa-house-chimney-crack",
+      "description": "Roof leak sealing, tile replacement, waterproofing, and roof coating/painting."
+    },
+    {
+      "name": "Security & Cameras",
+      "icon": "fa-video",
+      "description": "CCTV installations, electric fence repairs, alarm systems, and access control."
+    },
+    {
+      "name": "DSTV & TV Setup",
+      "icon": "fa-tv",
+      "description": "DSTV dish alignment, TV wall mounting, signal troubleshooting, and home theater setup."
+    },
+    {
+      "name": "Property Maintenance",
+      "icon": "fa-toolbox",
+      "description": "Scheduled upkeep for residential complexes, office buildings, and private homes."
+    },
+    {
+      "name": "Solar Panel Cleaning",
+      "icon": "fa-solar-panel",
+      "description": "Chemical-free cleaning to restore efficiency to solar arrays and inverter checks."
+    },
+    {
+      "name": "Pest Control",
+      "icon": "fa-bug",
+      "description": "Treatment against cockroaches, termites, rodents, bedbugs, and general pest management."
+    },
+    {
+      "name": "Flooring & Tiling",
+      "icon": "fa-layer-group",
+      "description": "Floor tiling, vinyl fitting, laminate floor installs, and grout restoration."
+    },
+    {
+      "name": "Carpentry",
+      "icon": "fa-hammer",
+      "description": "Custom cupboards, wooden deck installations, door fitting, and structural woodwork."
+    },
+    {
+      "name": "Appliance Repair",
+      "icon": "fa-screwdriver",
+      "description": "On-site repair for washing machines, fridges, ovens, dishwashers, and microwave units."
+    },
+    {
+      "name": "Aluminium & Glass",
+      "icon": "fa-window-maximize",
+      "description": "Aluminium window/door installations, glass replacements, and sliding door repairs."
+    },
+    {
+      "name": "Waterproofing",
+      "icon": "fa-droplet",
+      "description": "Flat roof sealing, balcony waterproofing, torch-on membranes, and damp prevention."
+    },
+    {
+      "name": "Air Conditioning & HVAC",
+      "icon": "fa-snowflake",
+      "description": "AC unit installation, regassing, servicing, and ventilation maintenance."
+    },
+    {
+      "name": "Moving & Removals",
+      "icon": "fa-truck-moving",
+      "description": "Home and office relocation, furniture packing, long-distance transport, and logistics."
+    },
+    {
+      "name": "Gate Automation",
+      "icon": "fa-torii-gate",
+      "description": "Intercom repairs, driveway gate motor installation, and remote synchronization."
+    },
+    {
+      "name": "Upholstery Cleaning",
+      "icon": "fa-couch",
+      "description": "Deep cleaning and stain removal for sofas, mattresses, and fabric furniture."
+    },
+    {
+      "name": "Window Washing",
+      "icon": "fa-soap",
+      "description": "Streak-free exterior and interior window cleaning for home and office."
+    }
+  ],
+  "gallery": [
+    "images/1.jpeg",
+    "images/2.jpeg",
+    "images/3.jpeg",
+    "images/4.jpeg",
+    "images/5.jpeg",
+    "images/6.jpeg",
+    "images/7.jpeg",
+    "images/8.jpeg",
+    "images/9.jpeg",
+    "images/10.jpeg",
+    "images/11.jpeg",
+    
+    "images/work1.mp4"
+  ],
+  "reviews": [
+    {
+      "name": "HomeHelp Team",
+      "service": "Welcome to HomeHel",
+      "text": "Welcome to HomeHelp! We are proud to launch our professional home services. Our top priority is providing reliable, fast, and high-quality assistance for all your home needs. We look forward to serving you with excellence!",
+      "video": "welcome.mp4"
+    }
+],
+  "_comment": "Niche diye gaye reviews abhi website par display nahi honge",
+  "inactive_reviews": [
+    {
+      "name": "David M.",
+      "service": "Plumbing Service",
+      "text": "Quick response and fixed the burst pipe in under an hour.",
+      "video": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+    },
+    {
+      "name": "Sipho N.",
+      "service": "Electrical Service",
+      "text": "Professional electricians. Very satisfied with the service."
+    }
+  ]
+}

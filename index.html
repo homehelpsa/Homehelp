@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HomeHelp - Where Homes Find Help</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary-blue: #092c74;
+      --accent-blue: #0066ff;
+      --gold: #d99100;
+      --light-bg: #f5f8fc;
+      --dark-text: #1d252d;
+      --white: #ffffff;
+      --whatsapp-green: #25d366;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { color: var(--dark-text); background-color: #fff; line-height: 1.6; scroll-behavior: smooth; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+
+    /* Top Logo Header */
+    .brand-header { background: #fff; padding: 15px 10px; text-align: center; border-bottom: 1px solid #e5e9f0; }
+    .logo-container { display: inline-flex; flex-direction: column; align-items: center; justify-content: center; }
+    
+    .logo-graphic { width: 60px; height: 45px; position: relative; margin-bottom: 5px; transition: transform 0.4s ease; }
+    .logo-container:hover .logo-graphic { transform: scale(1.05); }
+    .logo-graphic .roof-outer { width: 0; height: 0; border-left: 30px solid transparent; border-right: 30px solid transparent; border-bottom: 25px solid var(--primary-blue); position: absolute; top: 0; }
+    .logo-graphic .roof-inner { width: 0; height: 0; border-left: 20px solid transparent; border-right: 20px solid transparent; border-bottom: 18px solid #fff; position: absolute; top: 7px; left: 10px; }
+    .logo-graphic .h-stem { width: 12px; height: 24px; background: var(--primary-blue); position: absolute; bottom: 0; }
+    .logo-graphic .h-left { left: 15px; }
+    .logo-graphic .h-right { right: 15px; }
+    .logo-graphic .h-cross { width: 18px; height: 8px; background: var(--primary-blue); position: absolute; bottom: 8px; left: 21px; }
+    .logo-graphic .window { width: 8px; height: 8px; background: var(--gold); position: absolute; bottom: 10px; left: 26px; border: 1px solid #fff; }
+
+    .brand-title { font-size: clamp(28px, 6vw, 38px); font-weight: 900; color: var(--primary-blue); letter-spacing: -1px; line-height: 1; }
+    .brand-title span { color: var(--accent-blue); }
+    .brand-tagline { font-size: clamp(14px, 3.5vw, 18px); font-weight: 700; color: var(--gold); margin-top: 5px; }
+    .brand-subline { font-size: clamp(11px, 2.8vw, 13px); font-weight: 600; color: var(--primary-blue); margin-top: 2px; }
+
+    /* Navigation Bar */
+    header { position: sticky; top: 0; background: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000; }
+    .nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 12px 20px; }
+    
+    .menu-toggle { display: none; font-size: 24px; color: var(--primary-blue); background: none; border: none; cursor: pointer; }
+    
+    nav { width: 100%; }
+    nav ul { display: flex; list-style: none; gap: 20px; justify-content: center; align-items: center; }
+    nav a { text-decoration: none; color: var(--dark-text); font-weight: 600; transition: color 0.3s ease; position: relative; }
+    nav a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0; background-color: var(--accent-blue); transition: width 0.3s ease; }
+    nav a:hover::after { width: 100%; }
+    nav a:hover { color: var(--accent-blue); }
+
+    /* Hero Badges Strip */
+    .hero-strip { background: var(--primary-blue); color: white; padding: 15px 10px; text-align: center; }
+    .trust-badges { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; max-width: 1200px; margin: 0 auto; font-size: 13px; font-weight: 700; }
+    .badge { display: flex; align-items: center; gap: 6px; transition: transform 0.3s ease; }
+    .badge:hover { transform: translateY(-2px); }
+    .badge i { color: var(--gold); }
+
+    /* TOP ACTION BOX */
+    .booking-action-section {
+      max-width: 800px;
+      margin: 25px auto 10px;
+      padding: 0 15px;
+    }
+    .booking-card {
+      background: #ffffff;
+      border: 2px solid var(--accent-blue);
+      border-radius: 14px;
+      padding: 22px;
+      text-align: center;
+      box-shadow: 0 8px 25px rgba(9, 44, 116, 0.08);
+      transition: all 0.3s ease;
+    }
+    .booking-card h3 {
+      font-size: 20px;
+      color: var(--primary-blue);
+      margin-bottom: 6px;
+    }
+    .booking-card p {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 12px;
+    }
+
+    /* Dynamic Service Description Styling */
+    .service-desc-box {
+      background: var(--light-bg);
+      border-left: 4px solid var(--accent-blue);
+      padding: 12px 15px;
+      border-radius: 6px;
+      text-align: left;
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 18px;
+      display: none;
+    }
+    .service-desc-box h4 {
+      color: var(--primary-blue);
+      margin-bottom: 4px;
+      font-size: 15px;
+    }
+
+    /* Buttons */
+    .btn-sq-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--whatsapp-green);
+      color: white;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 14px 20px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 380px;
+      box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
+      transition: all 0.3s ease;
+      margin-bottom: 12px;
+    }
+    .btn-sq-whatsapp:hover {
+      background: #1eb956;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(37, 211, 102, 0.4);
+    }
+    .btn-sq-whatsapp i { font-size: 22px; }
+
+    /* Sections Layout */
+    section { padding: 35px 15px; max-width: 1200px; margin: 0 auto; }
+    .section-title { text-align: center; font-size: clamp(24px, 5vw, 32px); color: var(--primary-blue); margin-bottom: 8px; font-weight: 800; }
+    .section-subtitle { text-align: center; color: #666; margin-bottom: 30px; font-size: 14px; }
+
+    /* Scroll Animation Target Class */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .animate-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* About Section */
+    .about-card { background: var(--light-bg); border-radius: 12px; padding: 25px; border: 1px solid #e1e8f0; text-align: center; transition: box-shadow 0.3s ease, transform 0.3s ease; }
+    .about-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
+    .about-card h3 { color: var(--primary-blue); font-size: 20px; margin-bottom: 12px; }
+
+    /* Services Grid */
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 15px; }
+    .service-card {
+      background: var(--light-bg);
+      border-radius: 10px;
+      padding: 18px 10px;
+      text-align: center;
+      border: 1px solid #e1e8f0;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    .service-card.hidden-service { display: none; }
+    .service-card:hover {
+      background: #ffffff;
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 10px 20px rgba(9, 44, 116, 0.12);
+      border-color: var(--accent-blue);
+    }
+    .service-card i { font-size: 28px; color: var(--accent-blue); margin-bottom: 10px; transition: transform 0.3s ease; }
+    .service-card:hover i { transform: scale(1.2) rotate(5deg); }
+    .service-card h3 { font-size: 14px; color: var(--primary-blue); font-weight: 600; }
+
+    /* View More Services Button */
+    .toggle-services-btn {
+      margin: 25px auto 0;
+      display: block;
+      background: var(--primary-blue);
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 25px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(9, 44, 116, 0.2);
+    }
+    .toggle-services-btn:hover { background: var(--accent-blue); transform: translateY(-2px); }
+
+    /* Gallery Section Styling */
+    .gallery-btn-container { text-align: center; margin-top: 15px; }
+    .btn-gallery {
+      background: var(--gold);
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 25px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(217, 145, 0, 0.3);
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-gallery:hover { background: #b87a00; transform: translateY(-2px); }
+
+    /* Reviews Grid */
+    .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin-bottom: 25px; }
+    .review-card {
+      background: var(--white);
+      border: 1px solid #e1e8f0;
+      border-radius: 10px;
+      padding: 18px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+      transition: all 0.3s ease;
+    }
+    .review-card:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(0,0,0,0.08); border-color: #cbd5e1; }
+    .user-info { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .avatar { width: 40px; height: 40px; background: var(--accent-blue); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0; }
+
+    .btn-center { text-align: center; }
+    .btn-view-all {
+      background: var(--primary-blue);
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 25px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 15px;
+      width: 100%;
+      max-width: 320px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(9, 44, 116, 0.2);
+    }
+    .btn-view-all:hover { background: var(--accent-blue); transform: translateY(-2px); }
+
+    /* Modals Base */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85);
+      z-index: 2000;
+      overflow-y: auto;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
+      backdrop-filter: blur(4px);
+    }
+    .modal-content {
+      background: white;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 800px;
+      padding: 20px;
+      position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
+      transform: scale(0.85);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .modal.show .modal-content { transform: scale(1); opacity: 1; }
+    .close-modal { position: absolute; right: 15px; top: 15px; font-size: 26px; cursor: pointer; color: #333; transition: color 0.2s; z-index: 10; }
+    .close-modal:hover { color: #e74c3c; }
+
+    /* Gallery Popup Dynamic Container */
+    .gallery-modal-body {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .gallery-media-container {
+      width: 100%;
+      max-height: 60vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      margin: 15px 0;
+      background: #000;
+      border-radius: 8px;
+    }
+    .gallery-media-container img {
+      max-width: 100%;
+      max-height: 60vh;
+      object-fit: contain;
+    }
+    .gallery-media-container video {
+      max-width: 100%;
+      max-height: 60vh;
+    }
+    .gallery-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(9, 44, 116, 0.8);
+      color: white;
+      border: none;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background 0.2s;
+      z-index: 5;
+    }
+    .gallery-nav-btn:hover { background: var(--accent-blue); }
+    .gallery-nav-btn.prev { left: 10px; }
+    .gallery-nav-btn.next { right: 10px; }
+
+    /* Video Embed Reviews Grid */
+    .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 15px; margin-top: 15px; }
+    .video-card { border: 1px solid #ddd; border-radius: 8px; overflow: hidden; transition: transform 0.3s ease; background: #fff; }
+    .video-card:hover { transform: translateY(-4px); }
+    .video-card iframe, .video-card video { width: 100%; height: 200px; border: none; background: #000; }
+    .video-card .details { padding: 12px; }
+
+    /* Footer */
+    footer { background: #081226; color: white; padding: 40px 15px 20px; margin-top: 40px; }
+    .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; }
+    .footer-col h3 { font-size: 17px; margin-bottom: 12px; color: var(--gold); }
+    .footer-col p { margin-bottom: 8px; color: #a0aec0; font-size: 14px; word-break: break-word; }
+    .social-links { display: flex; gap: 12px; margin-top: 12px; }
+    .social-links a { width: 38px; height: 38px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 16px; transition: all 0.3s ease; }
+    .social-links a:hover { background: var(--accent-blue); transform: translateY(-3px); }
+    .footer-bottom { text-align: center; margin-top: 30px; padding-top: 15px; border-top: 1px solid #1a2942; color: #718096; font-size: 13px; }
+
+    /* Pulsing Floating WhatsApp */
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); }
+      70% { box-shadow: 0 0 0 14px rgba(37, 211, 102, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    }
+    .whatsapp-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #25d366;
+      color: white;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      box-shadow: 2px 4px 12px rgba(0,0,0,0.3);
+      z-index: 1500;
+      animation: pulse 2s infinite;
+      transition: transform 0.3s ease;
+    }
+    .whatsapp-float:hover { transform: scale(1.1); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+      nav { display: none; position: absolute; top: 100%; left: 0; background: white; box-shadow: 0 5px 10px rgba(0,0,0,0.1); padding: 15px 0; }
+      nav.active { display: block; }
+      nav ul { flex-direction: column; gap: 15px; }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Logo Branding -->
+  <div class="brand-header">
+    <div class="logo-container">
+      <div class="logo-graphic">
+        <div class="roof-outer"></div>
+        <div class="roof-inner"></div>
+        <div class="h-stem h-left"></div>
+        <div class="h-stem h-right"></div>
+        <div class="h-cross"></div>
+        <div class="window"></div>
+      </div>
+      <div class="brand-title">Home<span>Help</span></div>
+      <div class="brand-tagline">— Where Homes Find Help. —</div>
+      <div class="brand-subline">Everything Your Home Needs. All in One Place.</div>
+    </div>
+  </div>
+
+  <!-- Header Nav -->
+  <header>
+    <div class="nav-container">
+      <button class="menu-toggle" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
+      <nav id="mobileNav">
+        <ul>
+          <li><a href="#home" onclick="toggleMenu()">Home</a></li>
+          <li><a href="#about" onclick="toggleMenu()">About Us</a></li>
+          <li><a href="#services" onclick="toggleMenu()">Services</a></li>
+          <li><a href="#reviews" onclick="toggleMenu()">Happy Customers</a></li>
+          <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Badges -->
+  <div class="hero-strip" id="home">
+    <div class="trust-badges">
+      <div class="badge"><i class="fa-solid fa-globe"></i> NATIONWIDE</div>
+      <div class="badge"><i class="fa-solid fa-circle-check"></i> VERIFIED</div>
+      <div class="badge"><i class="fa-solid fa-thumbs-up"></i> RELIABLE</div>
+      <div class="badge"><i class="fa-solid fa-handshake"></i> TRUSTED</div>
+    </div>
+  </div>
+
+  <!-- TOP BOOKING & ENQUIRY ACTION BOX -->
+  <div class="booking-action-section" id="bookingBox">
+    <div class="booking-card">
+      <h3 id="bookingTitle">Book a Service Instantly</h3>
+      <p id="bookingSubtext">Select a service below or click to chat with us directly!</p>
+      
+      <!-- Dynamic Description Box -->
+      <div class="service-desc-box" id="serviceDescBox">
+        <h4>Service Details:</h4>
+        <p id="serviceDescText">Select a service tile to see specific details here.</p>
+      </div>
+
+      <div>
+        <a id="topWhatsappBtn" 
+           href="https://wa.me/+27749530985?text=Hello%20HomeHelp,%20I%20want%20to%20inquire%20about%20your%20services." 
+           target="_blank" 
+           class="btn-sq-whatsapp">
+          <i class="fa-brands fa-whatsapp"></i> <span id="waBtnText">Chat on WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- About Us -->
+  <section id="about" class="animate-on-scroll">
+    <h2 class="section-title">About Us</h2>
+    <p class="section-subtitle">Dedicated to providing reliable home solutions nationwide</p>
+    <div class="about-card">
+      <h3>Your Trusted Home Partner</h3>
+      <p>HomeHelp is your all-in-one partner for maintenance, repairs, and property renovations. We connect verified professionals with homeowners to provide high-quality services.</p>
+      
+      <!-- Photo/Video Gallery Launcher Button -->
+      <div class="gallery-btn-container">
+        <button class="btn-gallery" onclick="openGalleryModal()">
+          <i class="fa-solid fa-images"></i> View Work Gallery
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Grid (Loaded dynamically from data.json) -->
+  <section id="services" class="animate-on-scroll">
+    <h2 class="section-title">Our Services</h2>
+    <p class="section-subtitle">Click on any service to view details and book via WhatsApp</p>
+    
+    <div class="services-grid" id="servicesContainer">
+      <!-- Services will be injected dynamically via JavaScript -->
+    </div>
+
+    <button class="toggle-services-btn" id="toggleServicesBtn" onclick="toggleMoreServices()">View All Services</button>
+  </section>
+
+  <!-- Happy Customers Section -->
+  <section id="reviews" class="animate-on-scroll">
+    <h2 class="section-title">Happy Customers</h2>
+    <p class="section-subtitle">Read what our clients say about HomeHelp</p>
+    <div class="reviews-grid" id="previewReviewsGrid"></div>
+    <div class="btn-center">
+      <button class="btn-view-all" onclick="openReviewsModal()">View All Video & Text Reviews</button>
+    </div> 
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <div class="footer-content">
+      <div class="footer-col">
+        <h3>HomeHelp</h3>
+        <p>Where Homes Find Help.</p>
+        <p>Everything Your Home Needs. All in One Place.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Contact Details</h3>
+        <p><i class="fa-solid fa-phone"></i> +27 74 953 0985</p>
+        <p><i class="fa-solid fa-envelope"></i> homehelpsa@outlook.com</p>
+        <p><i class="fa-solid fa-location-dot"></i> Cape Town, South Africa, 8001</p>
+      </div>
+      <div class="footer-col">
+        <h3>Follow Us</h3>
+        <p>Connect with us on social media:</p>
+        <div class="social-links">
+          <a href="https://www.tiktok.com/@homehelpsa?_r=1&_t=ZS-99J8VzwBkGL" target="_blank" title="Tiktok"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="https://www.instagram.com/home.helpsa?utm_source=qr&igsi=eWJ4Ymdwb2hvM3Az" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.facebook.com/share/1D96veqeQv/" target="_blank" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 HomeHelp. All rights reserved.</div>
+  </footer>
+
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/+27749530985?text=Hello%20HomeHelp,%20I%20would%20like%20to%20inquire%20about%20your%20services." 
+     class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <!-- Reviews Modal -->
+  <div class="modal" id="reviewsModal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeReviewsModal()">&times;</span>
+      <h3 style="margin-bottom:15px; color:var(--primary-blue);">Customer Reviews & Video Showcase</h3>
+      <div class="video-grid" id="fullReviewsGrid"></div>
+    </div>
+  </div>
+
+  <!-- Photo / Video Work Gallery Modal -->
+  <div class="modal" id="galleryModal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeGalleryModal()">&times;</span>
+      <h3 style="text-align:center; color:var(--primary-blue); margin-bottom: 5px;">Project Work Gallery</h3>
+      <p style="text-align:center; font-size:12px; color:#666;" id="galleryCounter">Item 1 of 1</p>
+
+      <div class="gallery-modal-body">
+        <button class="gallery-nav-btn prev" onclick="changeGalleryMedia(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+        
+        <div class="gallery-media-container" id="activeGalleryContainer">
+          <!-- Dynamic Media Loaded via JS -->
+        </div>
+
+        <button class="gallery-nav-btn next" onclick="changeGalleryMedia(1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Global JSON Storage & Map
+    let appData = { services: [], gallery: [], reviews: [] };
+    let serviceMap = {};
+
+    function toggleMenu() {
+      const nav = document.getElementById('mobileNav');
+      nav.classList.toggle('active');
+    }
+
+    /* ---------------- SINGLE JSON DATA LOADER ---------------- */
+    async function loadData() {
+      try {
+        const res = await fetch('data.json?v=' + new Date().getTime());
+        if (!res.ok) throw new Error('data.json not found');
+        appData = await res.json();
+      } catch (err) {
+        console.error('Error loading data.json:', err);
+      }
+      
+      renderServices();
+      renderPreviewReviews();
+    }
+
+    /* ---------------- RENDER SERVICES DYNAMICALLY ---------------- */
+    function renderServices() {
+      const container = document.getElementById('servicesContainer');
+      if (!container || !appData.services) return;
+      
+      container.innerHTML = '';
+      serviceMap = {};
+
+      appData.services.forEach((item, index) => {
+        serviceMap[item.name] = item.description;
+        
+        // Show first 24 items by default, rest hidden under "View All Services"
+        const isHidden = index >= 24 ? 'hidden-service' : '';
+        
+        container.innerHTML += `
+          <div class="service-card ${isHidden}" onclick="selectService('${item.name.replace(/'/g, "\\'")}')">
+            <i class="fa-solid ${item.icon}"></i>
+            <h3>${item.name}</h3>
+          </div>
+        `;
+      });
+    }
+
+    function toggleMoreServices() {
+      const hiddenCards = document.querySelectorAll('.service-card.hidden-service');
+      const btn = document.getElementById('toggleServicesBtn');
+      let isShowing = btn.getAttribute('data-expanded') === 'true';
+
+      hiddenCards.forEach(card => {
+        card.style.display = isShowing ? 'none' : 'block';
+      });
+
+      btn.innerText = isShowing ? 'View All Services' : 'Show Less Services';
+      btn.setAttribute('data-expanded', !isShowing);
+    }
+
+    function selectService(serviceName) {
+      document.getElementById('bookingBox').scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      document.getElementById('bookingTitle').innerText = `Book ${serviceName}`;
+      document.getElementById('bookingSubtext').innerText = `Click below to request ${serviceName} service directly!`;
+      
+      const descBox = document.getElementById('serviceDescBox');
+      const descText = document.getElementById('serviceDescText');
+      descText.innerText = serviceMap[serviceName] || 'High-quality professional service tailored to your home needs.';
+      descBox.style.display = 'block';
+
+      const phoneNumber = "27749530985";
+      const encodedMsg = encodeURIComponent(`Hello HomeHelp, I would like to book/inquire about: ${serviceName}`);
+      
+      document.getElementById('topWhatsappBtn').href = `https://wa.me/${phoneNumber}?text=${encodedMsg}`;
+      document.getElementById('waBtnText').innerText = `Inquire for ${serviceName} on WhatsApp`;
+    }
+
+    // Helper: Check media file type
+    function isVideoFile(path) {
+      return path.match(/\.(mp4|webm|ogg|mov)$/i);
+    }
+
+    /* ---------------- WORK GALLERY LIGHTBOX ---------------- */
+    let currentGalleryIndex = 0;
+
+    function openGalleryModal() {
+      if (!appData.gallery || appData.gallery.length === 0) {
+        alert('No gallery media available.');
+        return;
+      }
+      currentGalleryIndex = 0;
+      displayGalleryMedia();
+      const modal = document.getElementById('galleryModal');
+      modal.style.display = 'flex';
+      setTimeout(() => modal.classList.add('show'), 10);
+    }
+
+    function closeGalleryModal() {
+      const modal = document.getElementById('galleryModal');
+      modal.classList.remove('show');
+      setTimeout(() => {
+        modal.style.display = 'none';
+        document.getElementById('activeGalleryContainer').innerHTML = '';
+      }, 300);
+    }
+
+    function changeGalleryMedia(direction) {
+      currentGalleryIndex += direction;
+      if (currentGalleryIndex >= appData.gallery.length) currentGalleryIndex = 0;
+      if (currentGalleryIndex < 0) currentGalleryIndex = appData.gallery.length - 1;
+      displayGalleryMedia();
+    }
+
+    function displayGalleryMedia() {
+      const container = document.getElementById('activeGalleryContainer');
+      container.innerHTML = '';
+
+      const mediaPath = appData.gallery[currentGalleryIndex];
+
+      if (isVideoFile(mediaPath)) {
+        const video = document.createElement('video');
+        video.src = mediaPath;
+        video.controls = true;
+        video.autoplay = true;
+        container.appendChild(video);
+      } else {
+        const img = document.createElement('img');
+        img.src = mediaPath;
+        img.alt = 'Work Photo';
+        container.appendChild(img);
+      }
+
+      document.getElementById('galleryCounter').innerText = `Item ${currentGalleryIndex + 1} of ${appData.gallery.length}`;
+    }
+
+    /* ---------------- REVIEWS LOGIC ---------------- */
+    function renderPreviewReviews() {
+      const previewGrid = document.getElementById('previewReviewsGrid');
+      previewGrid.innerHTML = '';
+
+      if (!appData.reviews || appData.reviews.length === 0) {
+        previewGrid.innerHTML = '<p style="text-align:center; grid-column:1/-1;">No reviews found.</p>';
+        return;
+      }
+
+      appData.reviews.slice(0, 3).forEach(review => {
+        previewGrid.innerHTML += `
+          <div class="review-card">
+            <div class="user-info">
+              <div class="avatar">${review.name ? review.name.charAt(0) : 'U'}</div>
+              <div>
+                <strong>${review.name}</strong><br>
+                <small style="color:var(--accent-blue);">${review.service}</small>
+              </div>
+            </div>
+            <p>"${review.text}"</p>
+          </div>
+        `;
+      });
+    }
+
+    function openReviewsModal() {
+      const fullGrid = document.getElementById('fullReviewsGrid');
+      fullGrid.innerHTML = '';
+
+      appData.reviews.forEach(review => {
+        let mediaHtml = '';
+
+        if (review.video) {
+          if (isVideoFile(review.video)) {
+            mediaHtml = `<video src="${review.video}" controls preload="metadata"></video>`;
+          } else if (review.video.includes('youtube.com') || review.video.includes('youtu.be')) {
+            const embedUrl = review.video.replace("watch?v=", "embed/");
+            mediaHtml = `<iframe src="${embedUrl}" allowfullscreen></iframe>`;
+          } else {
+            mediaHtml = `<iframe src="${review.video}" allowfullscreen></iframe>`;
+          }
+        }
+
+        fullGrid.innerHTML += `
+          <div class="video-card">
+            ${mediaHtml}
+            <div class="details">
+              <h4>${review.name} - <small style="color:var(--accent-blue);">${review.service}</small></h4>
+              <p style="margin-top:8px;">"${review.text}"</p>
+            </div>
+          </div>
+        `;
+      });
+
+      const modal = document.getElementById('reviewsModal');
+      modal.style.display = 'flex';
+      setTimeout(() => modal.classList.add('show'), 10);
+    }
+
+    function closeReviewsModal() {
+      const modal = document.getElementById('reviewsModal');
+      modal.classList.remove('show');
+      setTimeout(() => {
+        modal.style.display = 'none';
+        document.getElementById('fullReviewsGrid').innerHTML = '';
+      }, 300);
+    }
+
+    // Scroll Observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+    // Initialize Page Data
+    loadData();
+  </script>
+</body>
+</html>
